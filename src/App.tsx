@@ -1,11 +1,12 @@
+import PolicyGenerator from "./pages/PolicyGenerator";
+
 function App() {
   return (
-    <div className="min-h-screen bg-slate-900 text-white flex items-center justify-center">
-      <h1 className="text-3xl font-bold">
-        AI Usage Policy Generator
-      </h1>
+    <div className="min-h-screen bg-slate-900 text-white">
+      <PolicyGenerator />
     </div>
   );
 }
 
 export default App;
+
