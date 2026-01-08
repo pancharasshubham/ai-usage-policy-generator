@@ -3,6 +3,7 @@ import PolicyForm from "../components/PolicyForm";
 import PolicyPreview from "../components/PolicyPreview";
 import type { PolicyInput } from "../types/policy";
 import { generatePolicy } from "../utils/generatePolicy";
+import { standardAIDisclosure } from "../utils/standardDisclosure";
 
 const PolicyGenerator = () => {
   const [policyData, setPolicyData] = useState<PolicyInput>({
@@ -20,6 +21,11 @@ const PolicyGenerator = () => {
       <h1 className="text-3xl font-bold mb-8">
         Generate AI Usage Policy
       </h1>
+    <button
+        onClick={() => setPolicyData(standardAIDisclosure)}
+      className="mb-6 px-4 py-2 bg-slate-700 hover:bg-slate-600 rounded text-sm">
+        Apply Standard AI Disclosure
+    </button>
 
       <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
         {/* Left: Form */}
