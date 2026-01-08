@@ -10,7 +10,7 @@ export function exportPolicyPdf(text: string) {
 
   const marginLeft = 15;
   const marginTop = 20;
-  const lineHeight = 7;
+  const lineHeight = 8;
   const pageHeight = pdf.internal.pageSize.getHeight();
   const maxWidth = 180;
 
@@ -25,7 +25,13 @@ export function exportPolicyPdf(text: string) {
     }
 
     pdf.text(line, marginLeft, y);
-    y += lineHeight;
+
+    // Add extra spacing after section separators
+    if (line.includes("====")) {
+        y += lineHeight * 1.5;
+    } else {
+        y += lineHeight;
+    }
   });
 
   pdf.save("ai-usage-policy.pdf");
