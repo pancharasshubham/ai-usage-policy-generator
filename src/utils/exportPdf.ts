@@ -10,10 +10,23 @@ export function exportPolicyPdf(text: string) {
 
   const marginLeft = 15;
   const marginTop = 20;
+  const lineHeight = 7;
+  const pageHeight = pdf.internal.pageSize.getHeight();
   const maxWidth = 180;
 
   const lines = pdf.splitTextToSize(text, maxWidth);
 
-  pdf.text(lines, marginLeft, marginTop);
+  let y = marginTop;
+
+  lines.forEach((line: string) => {
+    if (y + lineHeight > pageHeight - marginTop) {
+      pdf.addPage();
+      y = marginTop;
+    }
+
+    pdf.text(line, marginLeft, y);
+    y += lineHeight;
+  });
+
   pdf.save("ai-usage-policy.pdf");
 }
