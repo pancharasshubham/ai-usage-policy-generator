@@ -25,10 +25,28 @@ const PolicyPreview = ({ policyText }: Props) => {
         </div>
       </div>
 
-      <div className="min-h-[300px] p-4 bg-slate-900 border border-slate-700 rounded whitespace-pre-wrap text-sm">
+      {/* Policy Preview */}
+      <div className="max-w-full overflow-x-hidden">
+        <pre
+          className="
+            min-h-[300px]
+            p-4
+            bg-slate-900
+            border
+            border-slate-700
+            rounded
+            whitespace-pre-wrap
+            break-all
+            overflow-x-auto
+            text-xs sm:text-sm
+            leading-relaxed
+            text-slate-100
+          "
+        >
         {policyText.trim()
           ? policyText
           : "Start filling the form to generate the policy preview."}
+        </pre>
       </div>
     </div>
   );
