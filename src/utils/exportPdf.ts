@@ -19,13 +19,40 @@ export function exportPolicyPdf(text: string) {
   let y = marginTop;
 
   lines.forEach((line: string) => {
-    if (y + lineHeight > pageHeight - marginTop) {
-      pdf.addPage();
-      y = marginTop;
+    const isSectionHeader =
+        line.match(/^\d+\.\s[A-Z\s&]+$/) ||
+        line.includes("PROJECT INFORMATION");
+
+    const isParagraphStart =
+        !isSectionHeader &&
+        line.trim().length > 0 &&
+        !line.includes("====");
+
+    // Ensure section headers are not orphaned at page bottom
+    if (
+        isSectionHeader &&
+        y + lineHeight * 4 > pageHeight - marginTop
+    ) {
+        pdf.addPage();
+        y = marginTop;
+    }
+    
+    // Protect paragraphs from splitting awkwardly
+    if (
+        isParagraphStart &&
+        y + lineHeight * 3 > pageHeight - marginTop
+    ) {
+        pdf.addPage();
+        y = marginTop;
     }
 
-    pdf.text(line, marginLeft, y);
+    // Normal page overflow protection
+    if (y + lineHeight > pageHeight - marginTop) {
+        pdf.addPage();
+        y = marginTop;
+    }
 
+    pdf.text(line, marginLeft, y); 
     // Add extra spacing after section separators
     if (line.includes("====")) {
         y += lineHeight * 1.5;
